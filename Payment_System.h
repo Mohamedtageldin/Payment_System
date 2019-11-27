@@ -2,7 +2,7 @@
     #define PAYMENT_SYSTEM_H_
 #include <stdio.h>
 #include <stdlib.h>
-#define Max_TransactionAmount 5000.00
+#define Max_TransactionAmount "5000.00"
 #define Balance_ArrSize 10
 typedef struct ST_cardData
 {

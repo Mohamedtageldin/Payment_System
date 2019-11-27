@@ -1,5 +1,6 @@
 #include "Payment_System.h"
 
+
 void fillCardData(ST_transaction *transaction){
     printf("Please, Enter Card Holder Name:");
     gets(&(transaction->cardHolderData.cardHolderName));
@@ -56,5 +57,7 @@ void checkBalance(ST_transaction *transaction){
     }
 }
 void saveTransactionIntoServer(ST_transaction *transaction){
+checkExpiryDate();
+checkBalance();
 
 }
