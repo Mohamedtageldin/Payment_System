@@ -1,7 +1,3 @@
-#ifndef PAYMENT_SYSTEM_H_
-    #define PAYMENT_SYSTEM_H_
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #define Balance_ArrSize 10
@@ -55,4 +51,4 @@ void checkExpiryDate(ST_transaction *transaction);
 void saveTransactionIntoServer(ST_transaction *transaction);
 void checkBalance(ST_transaction *transaction);
 
-#endif
+
