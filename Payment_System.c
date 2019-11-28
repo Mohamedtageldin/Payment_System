@@ -83,6 +83,8 @@ void saveTransactionIntoServer(ST_transaction *transaction){
                 transaction->transResponse.receiptReferenceNumber=++Transaction_Index;
         printf("The Transaction is APPROVED.\n");
     }
+    Server_Arr[transaction->transResponse.receiptReferenceNumber]=*transaction;
+
     printf("Do you want to continue (y/n)?");
 }
 void main (){
