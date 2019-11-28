@@ -1,16 +1,18 @@
 #include "Payment_System.h"
 
+ST_accountBalance Balance[10];
+int Transaction_Index=0;
 
 void fillCardData(ST_transaction *transaction){
     printf("Please, Enter Card Holder Name:");
-    gets(&(transaction->cardHolderData.cardHolderName));
+    gets(transaction->cardHolderData.cardHolderName);
     printf("Please, Enter the Primary Account Number:");
-    gets(&(transaction->cardHolderData.primaryAccountNumber));
+    gets(transaction->cardHolderData.primaryAccountNumber);
     printf("Please, Enter the Card Expiry Date:");
-    gets(&(transaction->cardHolderData.cardExpirationDate));
+    gets(transaction->cardHolderData.cardExpirationDate);
 }
 void checkAmount(ST_transaction *transaction){
-    if(atof(transaction->transData.transAmount)>(float)Max_TransactionAmount){
+    if(atof(transaction->transData.transAmount)>(float)5000.00){
         transaction->transResponse.transactionStatus=DECLINED;
         printf("The transaction is DECLINED");
     }
@@ -38,17 +40,16 @@ void checkExpiryDate(ST_transaction *transaction){
 }
 void fillTerminalData(ST_transaction *transaction){
     printf("Please, Enter the transaction amount:");
-    gets(&(transaction->transData.transAmount));
-    transaction->transData.maxTransAmount=Max_TransactionAmount;
-    checkAmount();
+    gets(transaction->transData.transAmount);
+    gcvt(5000.00,6,transaction->transData.maxTransAmount);
+    checkAmount(transaction);
     printf("Please, Enter the Card Transaction Date:");
-    gets(&(transaction->transData.transactionDate));
-    checkExpiryDate(transaction);
+    gets(transaction->transData.transactionDate);
 }
 void checkBalance(ST_transaction *transaction){
     int i=0;
     for(i=0;i<Balance_ArrSize;i++){
-        if((transaction->cardHolderData.cardHolderName)==extern Balance[i]){
+        if((transaction->cardHolderData.primaryAccountNumber)== Balance[i].primaryAccountNumber){
             if(atoi(Balance[i].balance)<atoi(transaction->transData.transAmount)){
                 transaction->transResponse.transactionStatus=DECLINED;
                     printf("The transaction is DECLINED");
@@ -57,7 +58,9 @@ void checkBalance(ST_transaction *transaction){
     }
 }
 void saveTransactionIntoServer(ST_transaction *transaction){
-checkExpiryDate();
-checkBalance();
-
+checkExpiryDate(transaction);
+checkBalance(transaction);
+    if(transaction->transResponse.transactionStatus==APPROVED){
+        printf("The Transaction is APPROVED.");
+    }
 }
